@@ -1,57 +1,51 @@
-import { Transform, Type } from 'class-transformer';
 import {
   IsInt,
   IsNumber,
   IsOptional,
   IsString,
-  Length,
-  Matches,
   Max,
   MaxLength,
   Min,
-  ValidateIf,
 } from 'class-validator';
-
-import { TransformHelper } from '../../../../common/helpers/transform.helper';
 
 export class CreateCarReqDto {
   @IsString()
   @MaxLength(255)
-  producer: string; // Виробник автомобіля
+  producer: string;
 
   @IsString()
-  model: string; // Модель автомобіля
+  model: string;
 
   @IsInt()
   @Min(1900)
   @Max(new Date().getFullYear())
-  year: number; // Рік випуску
+  year: number;
 
   @IsInt()
   @Min(0)
-  mileage: number; // Пробіг
+  mileage: number;
 
   @IsString()
   @MaxLength(255)
-  fuelType: string; // Тип палива
+  fuelType: string;
 
   @IsString()
   @MaxLength(255)
-  transmission: string; // Тип трансмісії
+  transmission: string;
 
   @IsString()
   @MaxLength(255)
-  bodyType: string; // Тип кузова
+  bodyType: string;
 
   @IsNumber()
   @Min(0)
-  price: number; // Ціна
+  price: number;
 
   @IsOptional()
   @IsString()
   @MaxLength(255)
-  color?: string; // Колір (необов'язкове поле)
+  color?: string;
 
   @IsString()
-  userId: string; // ID користувача
+  userId: string;
 }
