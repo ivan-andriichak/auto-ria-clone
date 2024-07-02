@@ -1,3 +1,4 @@
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
@@ -7,8 +8,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const config = new DocumentBuilder()
-    .setTitle('АвтоРІА - clone')
-    .setDescription('The АвтоРІА API description')
+    .setTitle('Avtoria-clone')
+    .setDescription('The avtoria API description')
     .setVersion('1.0.0')
     .addBearerAuth({
       type: 'http',
@@ -21,14 +22,21 @@ async function bootstrap() {
   SwaggerModule.setup('docs', app, document, {
     swaggerOptions: {
       docExpansion: 'list',
-      defaultModulesExpandDepth: 2,
+      defaultModelsExpandDepth: 2,
       persistAuthorization: true,
     },
   });
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+      whitelist: true,
+      forbidNonWhitelisted: true,
+    }),
+  );
 
   await app.listen(3001, '0.0.0.0', () => {
-    console.log('Server is running on port http://localhost:3001');
-    console.log('Swagger is running on port http://localhost:3001/docs');
+    console.log('Server running on http://localhost:3001');
+    console.log('Swagger running on http://localhost:3001/docs');
   });
 }
 void bootstrap();
