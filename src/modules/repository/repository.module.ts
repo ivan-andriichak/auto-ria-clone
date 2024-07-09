@@ -1,7 +1,7 @@
 import { Global, Module } from '@nestjs/common';
 
 import { ArticleRepository } from './services/article.repository';
-// import { CarRepository } from './services/car.repository';
+import { CarRepository } from './services/car.repository';
 import { CommentRepository } from './services/comment.repository';
 import { FollowRepository } from './services/follow.repository';
 import { LikeRepository } from './services/like.repository';
@@ -18,7 +18,7 @@ const repositories = [
   RefreshTokenRepository,
   TagRepository,
   UserRepository,
-  // CarRepository,
+  CarRepository,
   RoleRepository,
 ];
 

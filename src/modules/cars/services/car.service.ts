@@ -147,27 +147,27 @@ export class CarService {
   }
 
   private async getViewsCount(carId: string): Promise<number> {
-    return 0; // Приклад заглушки
+    return 0;
   }
 
   private async getDailyViewsCount(carId: string): Promise<number> {
-    return 0; // Приклад заглушки
+    return 0;
   }
 
   private async getWeeklyViewsCount(carId: string): Promise<number> {
-    return 0; // Приклад заглушки
+    return 0;
   }
 
   private async getMonthlyViewsCount(carId: string): Promise<number> {
-    return 0; // Приклад заглушки
+    return 0;
   }
 
   private async getAveragePriceByRegion(car: CarEntity): Promise<number> {
-    return 0; // Приклад заглушки
+    return 0;
   }
 
   private async getAveragePriceInUkraine(): Promise<number> {
-    return 0; // Приклад заглушки
+    return 0;
   }
 
   private containsProfanity(text: string): boolean {
