@@ -6,4 +6,6 @@ export enum TableNameEnum {
   TAGS = 'tags',
   FOLLOW = 'follow',
   COMMENTS = 'comments',
+  CARS = 'cars',
+  USER_ROLE = 'user_role',
 }

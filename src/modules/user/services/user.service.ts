@@ -4,11 +4,14 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 
+import { UserRoleEntity } from '../../../database/entities/user-role.entity';
+import { Role } from '../../auth/enums/user-role.enum';
 import { IUserData } from '../../auth/interfaces/user-data.interface';
 import { ContentType } from '../../file-storage/models/enums/content-type.enum';
 import { FileStorageService } from '../../file-storage/services/file-storage.service';
 import { LoggerService } from '../../logger/logger.service';
 import { FollowRepository } from '../../repository/services/follow.repository';
+import { RoleRepository } from '../../repository/services/role.repository';
 import { UserRepository } from '../../repository/services/user.repository';
 import { UpdateUserReqDto } from '../dto/req/update-user.req.dto';
 import { UserResDto } from '../dto/res/user.res.dto';
@@ -18,13 +21,29 @@ import { UserMapper } from './user.mapper';
 export class UserService {
   constructor(
     private readonly logger: LoggerService,
+    private readonly roleRepository: RoleRepository,
     private readonly userRepository: UserRepository,
     private readonly followRepository: FollowRepository,
     private readonly fileStorageService: FileStorageService,
   ) {}
 
-  public async getMe(userData: IUserData): Promise<UserResDto> {
-    const user = await this.userRepository.findOneBy({ id: userData.userId });
+  public async addUserRole(
+    userId: string,
+    roleName: Role,
+  ): Promise<UserRoleEntity> {
+    return await this.roleRepository.save(
+      this.roleRepository.create({
+        user_id: userId,
+        name: roleName,
+      }),
+    );
+  }
+
+  public async getMe(userId: string): Promise<UserResDto> {
+    const user = await this.userRepository.findOneBy({ id: userId });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
     return UserMapper.toResponseDTO(user);
   }
 

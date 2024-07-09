@@ -3,6 +3,7 @@ import { Transform, Type } from 'class-transformer';
 import { IsOptional, IsString, Length, Matches } from 'class-validator';
 
 import { TransformHelper } from '../../../../common/helpers/transform.helper';
+import { UserRoleEntity } from '../../../../database/entities/user-role.entity';
 
 export class BaseUserReqDto {
   @IsOptional()
@@ -24,13 +25,18 @@ export class BaseUserReqDto {
 
   @ApiProperty({ example: 'test@gmail.com' })
   @IsString()
-  @Length(0, 300)
+  @Length(0, 30)
   @Matches(/^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$/)
   email: string;
 
   @ApiProperty({ example: '123qwe!@#QWE' })
   @IsString()
-  @Length(0, 300)
+  @Length(0, 30)
   @Matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%_*#?&])[A-Za-z\d@$_!%*#?&]{8,}$/)
   password: string;
+
+  @ApiProperty()
+  @IsString()
+  @Length(3, 20)
+  role: UserRoleEntity;
 }

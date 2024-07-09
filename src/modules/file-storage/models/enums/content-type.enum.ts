@@ -1,4 +1,4 @@
 export enum ContentType {
   AVATAR = 'avatar',
-  CV = 'cv',
+  CAR_PHOTO = 'car',
 }

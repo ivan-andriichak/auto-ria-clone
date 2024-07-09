@@ -18,4 +18,8 @@ export class TransformHelper {
   public static toLowerCaseArray({ value }) {
     return value ? value.map((item) => item.toLowerCase()) : value;
   }
+
+  public static toInt({ value }) {
+    return value !== undefined && value !== null ? parseInt(value, 10) : value;
+  }
 }

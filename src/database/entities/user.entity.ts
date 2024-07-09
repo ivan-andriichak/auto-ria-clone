@@ -1,12 +1,14 @@
-import { Column, Entity, OneToMany } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 
 import { ArticleEntity } from './article.entity';
+import { CarEntity } from './car.entity';
 import { CommentEntity } from './comment.entity';
 import { TableNameEnum } from './enums/table-name.enum';
 import { FollowEntity } from './follow.entity';
 import { LikeEntity } from './like.entity';
 import { BaseModel } from './models/base.model';
 import { RefreshTokenEntity } from './refresh-token.entity';
+import { UserRoleEntity } from './user-role.entity';
 
 @Entity({ name: TableNameEnum.USERS })
 export class UserEntity extends BaseModel {
@@ -25,6 +27,9 @@ export class UserEntity extends BaseModel {
   @Column('text', { nullable: true })
   image?: string;
 
+  @Column('text', { nullable: true })
+  accountType?: string;
+
   @OneToMany(() => RefreshTokenEntity, (entity) => entity.user)
   refreshTokens?: RefreshTokenEntity[];
 
@@ -42,4 +47,10 @@ export class UserEntity extends BaseModel {
 
   @OneToMany(() => CommentEntity, (entity) => entity.article)
   comments?: CommentEntity[];
+
+  @ManyToOne(() => UserRoleEntity, (entity) => entity.user)
+  role: UserRoleEntity;
+
+  @OneToMany(() => CarEntity, (car) => car.owner)
+  cars: CarEntity[];
 }

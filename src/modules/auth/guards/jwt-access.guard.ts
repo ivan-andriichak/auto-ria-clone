@@ -6,6 +6,7 @@ import {
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 
+import { UserRoleEntity } from '../../../database/entities/user-role.entity';
 import { UserRepository } from '../../repository/services/user.repository';
 import { SKIP_AUTH } from '../constants/constants';
 import { TokenType } from '../enums/token-type.enum';
@@ -59,5 +60,13 @@ export class JwtAccessGuard implements CanActivate {
     }
     request.user = AuthMapper.toUserDataDTO(user, payload.deviceId);
     return true;
+  }
+
+  private matchRoles(
+    userRoles: UserRoleEntity[],
+    allowedRoles: string[],
+  ): boolean {
+    const userRoleNames = userRoles.map((role) => role.name); // Отримуємо імена ролей користувача
+    return allowedRoles.some((role) => userRoleNames.includes(role));
   }
 }

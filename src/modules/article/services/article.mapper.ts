@@ -6,7 +6,6 @@ import { ArticleListResDto } from '../dto/res/article-list.res.dto';
 
 export class ArticleMapper {
   public static toResponseDTO(entity: ArticleEntity): ArticleResDto {
-    console.log(entity);
     return {
       id: entity.id,
       title: entity.title,

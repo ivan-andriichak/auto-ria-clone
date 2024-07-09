@@ -6,7 +6,7 @@ import { GlobalExceptionFilter } from './common/http/global-exception.filter';
 import configuration from './configs/configs';
 import { ArticleModule } from './modules/article/article.module';
 import { AuthModule } from './modules/auth/auth.module';
-import { CarsModule } from './modules/cars/cars.module';
+import { CarModule } from './modules/cars/car.module';
 import { FileStorageModule } from './modules/file-storage/file-storage.module';
 import { LoggerModule } from './modules/logger/logger.module';
 import { PostgresModule } from './modules/postgres/postgres.module';
@@ -26,8 +26,8 @@ import { UserModule } from './modules/user/user.module';
     PostgresModule,
     RedisModule,
     AuthModule,
+    CarModule,
     UserModule,
-    CarsModule,
     ArticleModule,
     TagModule,
     FileStorageModule,

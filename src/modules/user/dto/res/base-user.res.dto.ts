@@ -1,5 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 
+import { UserRoleEntity } from '../../../../database/entities/user-role.entity';
+
 export class BaseUserResDto {
   @ApiProperty({
     example: '121324354678976543fdg',
@@ -35,4 +37,9 @@ export class BaseUserResDto {
     description: 'The date the User was created',
   })
   public readonly isFollowed?: boolean;
+
+  @ApiProperty({
+    description: 'The User role',
+  })
+  public readonly role: UserRoleEntity;
 }

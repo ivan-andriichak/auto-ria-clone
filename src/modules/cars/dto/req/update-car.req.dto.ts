@@ -1,12 +1,13 @@
-export class UpdateCarReqDto {
-  id: string;
-  producer: string;
-  model: string;
-  year: number;
-  mileage: number;
-  fuelType: string;
-  transmission: string;
-  bodyType: string;
-  price: number;
-  color?: string;
-}
+import { PickType } from '@nestjs/swagger';
+
+import { BaseCarReqDto } from './base-car.req.dto';
+
+export class UpdateCarReqDto extends PickType(BaseCarReqDto, [
+  'brand',
+  'model',
+  'year',
+  'color',
+  'mileage',
+  'price',
+  'additionalInfo',
+]) {}

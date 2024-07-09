@@ -21,8 +21,10 @@ import {
 } from '@nestjs/swagger';
 
 import { ApiFile } from '../../common/decorators/api-file.decorator';
+import { UserRoleEntity } from '../../database/entities/user-role.entity';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { SkipAuth } from '../auth/decorators/skip-auth.decorator';
+import { Role } from '../auth/enums/user-role.enum';
 import { IUserData } from '../auth/interfaces/user-data.interface';
 import { UpdateUserReqDto } from './dto/req/update-user.req.dto';
 import { UserResDto } from './dto/res/user.res.dto';
@@ -38,8 +40,8 @@ export class UserController {
   @ApiUnauthorizedResponse({ description: 'Unauthorized' })
   @ApiNotFoundResponse({ description: 'Not Found' })
   @Get('me')
-  public async getMe(@CurrentUser() userData: IUserData): Promise<UserResDto> {
-    return await this.userService.getMe(userData);
+  public async getMe(@CurrentUser('id') userId: string): Promise<UserResDto> {
+    return await this.userService.getMe(userId);
   }
 
   @ApiBearerAuth()
@@ -112,5 +114,14 @@ export class UserController {
     @Param('userId', ParseUUIDPipe) userId: string,
   ): Promise<void> {
     await this.userService.unfollow(userData, userId);
+  }
+
+  @ApiBearerAuth()
+  @Put(':userId/role/:roleName')
+  public async addRole(
+    @Param('userId', ParseUUIDPipe) userId: string,
+    @Param('roleName') roleName: Role,
+  ): Promise<UserRoleEntity> {
+    return await this.userService.addUserRole(userId, roleName);
   }
 }

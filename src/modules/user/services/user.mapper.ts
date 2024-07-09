@@ -12,6 +12,7 @@ export class UserMapper {
       bio: user.bio || null,
       image: user.image ? `${awsConfig.bucketUrl}/${user.image}` : null,
       isFollowed: user.followings ? user.followings.length > 0 : false,
+      role: user.role || null,
     };
   }
 }

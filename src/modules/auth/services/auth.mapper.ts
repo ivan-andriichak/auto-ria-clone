@@ -25,9 +25,11 @@ export class AuthMapper {
 
   public static toUserDataDTO(user: UserEntity, deviceId: string): IUserData {
     return {
+      roles: [],
       userId: user.id,
       email: user.email,
       deviceId,
+      accountType: user.accountType,
     };
   }
 }

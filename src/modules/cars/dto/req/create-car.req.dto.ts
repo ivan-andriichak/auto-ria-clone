@@ -1,51 +1,14 @@
-import {
-  IsInt,
-  IsNumber,
-  IsOptional,
-  IsString,
-  Max,
-  MaxLength,
-  Min,
-} from 'class-validator';
+import { PickType } from '@nestjs/swagger';
 
-export class CreateCarReqDto {
-  @IsString()
-  @MaxLength(255)
-  producer: string;
+import { BaseCarReqDto } from './base-car.req.dto';
 
-  @IsString()
-  model: string;
-
-  @IsInt()
-  @Min(1900)
-  @Max(new Date().getFullYear())
-  year: number;
-
-  @IsInt()
-  @Min(0)
-  mileage: number;
-
-  @IsString()
-  @MaxLength(255)
-  fuelType: string;
-
-  @IsString()
-  @MaxLength(255)
-  transmission: string;
-
-  @IsString()
-  @MaxLength(255)
-  bodyType: string;
-
-  @IsNumber()
-  @Min(0)
-  price: number;
-
-  @IsOptional()
-  @IsString()
-  @MaxLength(255)
-  color?: string;
-
-  @IsString()
-  userId: string;
-}
+export class CreateCarReqDto extends PickType(BaseCarReqDto, [
+  'brand',
+  'model',
+  'year',
+  'color',
+  'mileage',
+  'price',
+  'additionalInfo',
+  'userId',
+]) {}
